@@ -1,0 +1,48 @@
+/*
+Copyright (C) Bryan Hughes <bryan@nebri.us>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.trig-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 150px auto;
+  grid-template-areas:
+    "equation equation"
+    "controls graph";
+  justify-items: center;
+  align-items: center;
+}
+
+.trig-equation {
+  grid-area: equation;
+}
+
+.trig-graph-container {
+  grid-area: graph;
+  width: 100%;
+  height: 100%;
+}
+
+.trig-controls {
+  grid-area: controls;
+  padding: 75px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-column-gap: 10px;
+}

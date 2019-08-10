@@ -1,0 +1,123 @@
+<!--
+Copyright (C) Bryan Hughes <bryan@nebri.us>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+<link href="../lib/katex/katex.css" rel="stylesheet">
+<link href="../style.css" rel="stylesheet">
+<link href="./trig review.css" rel="stylesheet">
+</head>
+<body>
+  <div class="rprez">
+    <div class="demo">
+      <div class="demo-title">Trigonometry review</div>
+      <div class="demo-contents">
+        <div class="trig-container">
+          <div class="trig-equation"></div>
+          <div class="trig-graph-container"><canvas class="trig-graph" width="800" height="400"></canvas></div>
+          <div class="trig-controls">
+            <span>a</span>
+            <span>0</span>
+            <input id="aInput" type="range" min="0" max="1" value="1" step="0.1" />
+            <span>1</span>
+
+            <span>ω</span>
+            <span>0</span>
+            <input id="omegaInput" type="range" min="0" max="16" value="1" step="0.25" />
+            <span>16</span>
+
+            <span>φ</span>
+            <span>0</span>
+            <input id="phiInput" type="range" min="0" max="6.2831" value="0" step="0.1" />
+            <span>2π</span>
+
+            <span>b</span>
+            <span>-1</span>
+            <input id="bInput" type="range" min="-1" max="1" value="0" step="0.1" />
+            <span>1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+import { addPresentationMessageListener, sendPresentationMessage, init } from '../rprez-handler.js';
+import { graph } from '../graph.js';
+
+import katex from '../lib/katex/katex.mjs';
+(async () => {
+  let a = 1;
+  let omega = 1;
+  let phi = 0;
+  let b = 0;
+
+  function updateGraph() {
+    sendPresentationMessage({ a, b, omega, phi });
+  }
+
+  addPresentationMessageListener((msg) => {
+    const aInput = document.querySelector('#aInput');
+    a = aInput.value = msg.a;
+
+    const omegaInput = document.querySelector('#omegaInput');
+    omega = omegaInput.value = msg.omega;
+
+    const phiInput = document.querySelector('#phiInput');
+    phi = phiInput.value = msg.phi;
+
+    const bInput = document.querySelector('#bInput');
+    b = bInput.value = msg.b;
+
+    graph({ a, omega, phi, b, canvas, variableName: 't' });
+  });
+
+  document.querySelector('#aInput').oninput = (e) => {
+    a = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#omegaInput').oninput = (e) => {
+    omega = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#phiInput').oninput = (e) => {
+    phi = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#bInput').oninput = (e) => {
+    b = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+  katex.render("f(t) = a \\sin(\\omega t + \\phi) + b", document.querySelector('.trig-equation'), { throwOnError: false });
+
+  const graphContainerStyle = window.getComputedStyle(document.querySelector('.trig-graph-container'));
+  const canvas = document.querySelector('.trig-graph');
+  canvas.width = parseInt(graphContainerStyle.width, 10) - 100;
+  canvas.height = parseInt(graphContainerStyle.height, 10) - 100;
+
+  await init();
+  updateGraph();
+})();
+</script>
+
+</body>
+</html>

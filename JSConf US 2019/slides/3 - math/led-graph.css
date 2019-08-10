@@ -1,0 +1,54 @@
+/*
+Copyright (C) Bryan Hughes <bryan@nebri.us>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.led-graph-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "controls graph"
+    "controls display";
+}
+
+.led-graph-display {
+  grid-area: display;
+  align-self: left;
+  padding-left: 50px;
+  padding-bottom: 100px;
+  padding-top: 50px;
+}
+
+.led-graph-graph-container {
+  grid-area: graph;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.led-graph-controls {
+  grid-area: controls;
+  align-self: center;
+  padding: 75px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto;
+  grid-column-gap: 10px;
+}

@@ -1,0 +1,162 @@
+<!--
+Copyright (C) Bryan Hughes <bryan@nebri.us>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+<link href="../lib/katex/katex.css" rel="stylesheet">
+<link href="../style.css" rel="stylesheet">
+<link href="./led-graph.css" rel="stylesheet">
+</head>
+<body>
+  <div class="rprez">
+    <div class="demo">
+      <div class="demo-title"></div>
+      <div class="demo-contents">
+        <div class="led-graph-container">
+          <div class="led-graph-graph-container"><canvas class="led-graph-graph" width="800" height="400"></canvas></div>
+          <div class="led-graph-display"></div>
+          <div class="led-graph-controls">
+            <span>a</span>
+            <span>0</span>
+            <input id="aInput" type="range" min="0" max="1" value="1" step="0.1" />
+            <span>1</span>
+
+            <span>ω<sub>t</sub></span>
+            <span>0</span>
+            <input id="omegaTInput" type="range" min="0" max="16" value="1" step="1" />
+            <span>16</span>
+
+            <span>ω<sub>x</sub></span>
+            <span>0</span>
+            <input id="omegaXInput" type="range" min="0" max="16" value="1" step="1" />
+            <span>16</span>
+
+            <span>φ</span>
+            <span>0</span>
+            <input id="phiInput" type="range" min="0" max="6.2831" value="0" step="0.1" />
+            <span>2π</span>
+
+            <span>b</span>
+            <span>-1</span>
+            <input id="bInput" type="range" min="-1" max="1" value="0" step="0.1" />
+            <span>1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+import { addPresentationMessageListener, sendPresentationMessage, init } from '../rprez-handler.js';
+import { initLED, createLEDStrip, setLEDParameters, getTime } from '../leds.js';
+import { createWaveParameters } from '../animations.js'
+import { graph } from '../graph.js';
+
+import katex from '../lib/katex/katex.mjs';
+(async () => {
+  await initLED();
+
+  let a = 1;
+  let omegaT = 1;
+  let omegaX = 0;
+  let phi = Math.PI / 2;
+  let b = 0;
+
+  function updateGraph() {
+    sendPresentationMessage({ a, omegaT, omegaX, phi, b });
+  }
+
+  addPresentationMessageListener((msg) => {
+    const aInput = document.querySelector('#aInput');
+    a = aInput.value = msg.a;
+
+    const omegaTInput = document.querySelector('#omegaTInput');
+    omegaT = omegaTInput.value = msg.omegaT;
+
+    const omegaXInput = document.querySelector('#omegaXInput');
+    omegaX = omegaXInput.value = msg.omegaX;
+
+    const phiInput = document.querySelector('#phiInput');
+    phi = phiInput.value = msg.phi;
+
+    const bInput = document.querySelector('#bInput');
+    b = bInput.value = msg.b;
+
+    setLEDParameters(createWaveParameters({
+      h: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 },
+      s: {
+        a: Math.round(a * 255),
+        w_t: Math.round(omegaT),
+        w_x: Math.round(omegaX),
+        phi: Math.round(phi * 255 / 2 / Math.PI),
+        b: Math.max(0, Math.round(b * 255))
+      },
+      v: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 },
+      a: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 }
+    }));
+  });
+
+  document.querySelector('#aInput').oninput = (e) => {
+    a = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#omegaTInput').oninput = (e) => {
+    omegaT = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#omegaXInput').oninput = (e) => {
+    omegaX = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#phiInput').oninput = (e) => {
+    phi = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  document.querySelector('#bInput').oninput = (e) => {
+    b = parseFloat(e.currentTarget.value);
+    updateGraph();
+  };
+
+  katex.render("color_{saturation}(t, x) = a \\sin(\\omega_t t + \\omega_x x + \\phi) + b", document.querySelector('.demo-title'), { throwOnError: false });
+
+  const graphContainerStyle = window.getComputedStyle(document.querySelector('.led-graph-graph-container'));
+  const canvas = document.querySelector('.led-graph-graph');
+  canvas.width = parseInt(graphContainerStyle.width, 10) - 100;
+  canvas.height = parseInt(graphContainerStyle.height, 10) - 100;
+
+  const displayContainer = document.querySelector('.led-graph-display');
+  displayContainer.style.zoom = 0.9 * (canvas.width - 20) / (32 * 50);
+  createLEDStrip(displayContainer, 32);
+
+  await init();
+
+  setInterval(() => {
+    const marker = 2 * Math.PI * getTime() / 25500;
+    graph({ a, omega: omegaT, phi, b, variableName: 't' , marker, canvas });
+  }, 33);
+  updateGraph();
+})();
+</script>
+
+</body>
+</html>

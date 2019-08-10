@@ -1,0 +1,35 @@
+{
+  "slides": [
+    { "slide": "./slides/0 - intro/title.html" },
+
+    { "slide": "./slides/1 - art is technical/section.html" },
+    { "slide": "./slides/1 - art is technical/paint.html" },
+    { "slide": "./slides/1 - art is technical/art and tech.html" },
+
+    { "slide": "./slides/2 - hsv/section.html" },
+    { "slide": "./slides/2 - hsv/rgb.html" },
+    { "slide": "./slides/2 - hsv/hsv.html" },
+    { "slide": "./slides/2 - hsv/hue.html" },
+    { "slide": "./slides/2 - hsv/saturation.html" },
+    { "slide": "./slides/2 - hsv/value.html" },
+    { "slide": "./slides/2 - hsv/all.html" },
+
+    { "slide": "./slides/3 - math/section.html" },
+    { "slide": "./slides/3 - math/trig review.html" },
+    { "slide": "./slides/3 - math/value-x.html" },
+    { "slide": "./slides/3 - math/value-t.html" },
+    { "slide": "./slides/3 - math/value-xt.html" },
+    { "slide": "./slides/3 - math/saturation.html" },
+    { "slide": "./slides/3 - math/hue.html" },
+    { "slide": "./slides/3 - math/layers.html" },
+    { "slide": "./slides/3 - math/equations.html" },
+
+    { "slide": "./slides/4 - raver lights/section.html" },
+
+    { "slide": "./slides/5 - conclusion/section.html" },
+    { "slide": "./slides/5 - conclusion/understand yourself.html" },
+    { "slide": "./slides/5 - conclusion/betterment.html" },
+    { "slide": "./slides/5 - conclusion/feed your artist.html" },
+    { "slide": "./slides/5 - conclusion/thanks.html" }
+  ]
+}

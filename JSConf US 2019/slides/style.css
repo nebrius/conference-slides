@@ -1,0 +1,202 @@
+/*
+Copyright (C) Bryan Hughes <bryan@nebri.us>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+:root {
+  --decorator-width: 60px;
+  --led-diameter: 50px;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.rprez {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  border: 1px solid #222;
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(280, 100%, 20%);
+}
+
+.title-title {
+  font-size: 7em;
+  margin: 40px;
+  text-align: center;
+}
+
+.title-details {
+  font-size: 5em;
+  text-align: center;
+}
+
+.section {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(280, 100%, 20%);
+}
+
+.section-title {
+  font-size: 7em;
+  margin: 40px;
+  text-align: center;
+}
+
+.text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  vertical-align: bottom;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-left: var(--decorator-width);
+}
+
+.text::after {
+  content: "@nebrius";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--decorator-width);
+  background-color: hsl(280, 100%, 20%);
+  writing-mode: vertical-rl;
+  text-orientation: sideways-right;
+  text-align: start;
+  font-size: 3em;
+  padding: 30px 10px;
+  transform: rotate(180deg);
+}
+
+.text-content {
+  font-size: 8em;
+  height: min-content;
+  margin: 60px;
+}
+
+.demo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.demo-title-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.demo-title {
+  font-size: 4em;
+  margin: 0.5em;
+}
+
+.demo-contents {
+  font-size: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.demo-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.demo-output {
+  width: 60%;
+  height: 60%;
+  background-color:#ff0000;
+}
+
+.display-led-set {
+  padding: 10px 10px 0 10px;
+  grid-area: submission;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+  height: fit-content;
+}
+
+.display-led-container {
+  border: 1px solid black;
+  border-radius: 2px;
+  height: fit-content;
+  background-color: black;
+}
+
+.display-led-overlay {
+  filter: blur(4px);
+  padding: 5px;
+  display: flex;
+}
+
+.display-led-stack {
+  position: relative;
+  width: var(--led-diameter);
+  height: var(--led-diameter);
+}
+
+.display-led {
+  position: absolute;
+  width: var(--led-diameter);
+  height: var(--led-diameter);
+  border-radius: var(--led-diameter);
+}
