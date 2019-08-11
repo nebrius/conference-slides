@@ -1,3 +1,5 @@
+// Note: this is a one-off build of https://github.com/nebrius/rvl-node-animations.
+
 /*
 Copyright (c) Bryan Hughes <bryan@nebri.us>
 
@@ -16,20 +18,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Raver Lights Node Animations.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-// Note: this is a one-off build of https://github.com/nebrius/rvl-node-animations.
-
 const EMPTY_CHANNEL = { a: 0, w_t: 0, w_x: 0, phi: 0, b: 0 };
 let nWaves = 0;
 let nPixels = 0;
 let calculatePixelValue = null;
 let startTime = 0;
+let time = 0;
 export async function init(numWaves, numPixels) {
     nWaves = numWaves;
     nPixels = numPixels;
     startTime = Date.now();
     const response = await fetch('../lib/calculatePixelValue.wasm');
     const buffer = await response.arrayBuffer();
+    // const buffer = await promises.readFile('./calculatePixelValue.wasm');
     const memory = new WebAssembly.Memory({ initial: 256, maximum: 256 });
     const env = {
         abortStackOverflow: (err) => { throw new Error(`overflow: ${err}`); },
@@ -43,15 +44,12 @@ export async function init(numWaves, numPixels) {
     const mod = await WebAssembly.instantiate(buffer, { env });
     calculatePixelValue = mod.instance.exports._calculatePixelValue;
 }
-
 export function resetClock() {
-    startTime = 0;
+    startTime = Date.now();
 }
-
 export function getClock() {
-    return startTime;
+    return time;
 }
-
 // Modified from https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
 function hsvToRgb(color) {
     const [h, s, v] = color;
@@ -97,22 +95,22 @@ export function calculatePixels(waveParameters) {
         waveParameters.distancePeriod = 32;
     }
     const colors = [];
-    const t = animationClock % 25500;
+    time = animationClock % 25500;
     for (let i = 0; i < nPixels; i++) {
         const pixelColorLayers = [];
         for (let j = 0; j < nWaves; j++) {
             const x = Math.floor(255 * (i % waveParameters.distancePeriod) / waveParameters.distancePeriod);
             const wave = waveParameters.waves[j];
             const pixelColor = hsvToRgb([
-                calculatePixelValue(wave.h.a, wave.h.w_t, wave.h.w_x, wave.h.phi, wave.h.b, t, x) / 255,
-                calculatePixelValue(wave.s.a, wave.s.w_t, wave.s.w_x, wave.s.phi, wave.s.b, t, x) / 255,
-                calculatePixelValue(wave.v.a, wave.v.w_t, wave.v.w_x, wave.v.phi, wave.v.b, t, x) / 255
+                calculatePixelValue(wave.h.a, wave.h.w_t, wave.h.w_x, wave.h.phi, wave.h.b, time, x) / 255,
+                calculatePixelValue(wave.s.a, wave.s.w_t, wave.s.w_x, wave.s.phi, wave.s.b, time, x) / 255,
+                calculatePixelValue(wave.v.a, wave.v.w_t, wave.v.w_x, wave.v.phi, wave.v.b, time, x) / 255
             ]);
             pixelColorLayers[j] = {
                 r: pixelColor[0],
                 g: pixelColor[1],
                 b: pixelColor[2],
-                a: calculatePixelValue(wave.a.a, wave.a.w_t, wave.a.w_x, wave.a.phi, wave.a.b, t, x)
+                a: calculatePixelValue(wave.a.a, wave.a.w_t, wave.a.w_x, wave.a.phi, wave.a.b, time, x)
             };
         }
         colors[i] = pixelColorLayers;
@@ -222,4 +220,3 @@ export function createRainbowWave(a, rate) {
     wave.a.b = Math.round(a);
     return wave;
 }
-//# sourceMappingURL=index.js.map
