@@ -27,23 +27,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <body>
   <div class="rprez">
     <div class="demo">
-      <div class="demo-title">Arduino + node-pixel</div>
+      <div class="demo-title">In code form</div>
       <div class="demo-contents">
-<pre><code class="javascript">const pixel = require('node-pixel');
-const five = require('johnny-five');
-const board = new five.Board();
-const strip = null;
-board.on('ready', () => {
-    const strip = new pixel.Strip({
-        board,
-        controller: 'FIRMATA',
-        strips: [ { pin: 6, length: 128 }, ]
-    });
-
-    strip.on('ready', () => {
-        // do stuff with the strip here.
-    });
-});
+<pre><code class="javascript">const coefficients = [{
+    h: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 128 },
+    s: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 },
+    v: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 },
+    a: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 }
+  }, {
+    h: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 128 },
+    s: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 },
+    v: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 },
+    a: { a: 0, w_t: 0, w_x: 0, phi: 0, b: 255 }
+  },
+  ...
+}];
 </code></pre>
       </div>
     </div>

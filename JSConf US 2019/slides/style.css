@@ -188,14 +188,7 @@ body {
   display: flex;
 }
 
-.display-led-stack {
-  position: relative;
-  width: var(--led-diameter);
-  height: var(--led-diameter);
-}
-
 .display-led {
-  position: absolute;
   width: var(--led-diameter);
   height: var(--led-diameter);
   border-radius: var(--led-diameter);
