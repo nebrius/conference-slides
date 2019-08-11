@@ -19,12 +19,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <head>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+<link href="../lib/katex/katex.css" rel="stylesheet">
 <link href="../style.css" rel="stylesheet">
+<link href="./led-graph.css" rel="stylesheet">
+<style>
+.home-lights-demo {
+  width: 80%;
+  height: 80%;
+}
+</style>
 </head>
 <body>
   <div class="rprez">
-    <div class="text">
-      <div class="text-content">Embed iFrame to home-lights server</div>
+    <div class="demo">
+      <div class="demo-title">Controlling the art piece from the web</div>
+      <div class="demo-contents">
+        <iframe class="home-lights-demo" src="http://brpl.local/" ></iframe>
+      </div>
     </div>
   </div>
 <script type="module">
