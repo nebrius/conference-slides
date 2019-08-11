@@ -31,18 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <div class="demo-contents">
 <pre><code class="javascript">const pixel = require('node-pixel');
 const five = require('johnny-five');
+const rvl = require('rvl-node-animations');
 const board = new five.Board();
-const strip = null;
-board.on('ready', () => {
-    const strip = new pixel.Strip({
-        board,
-        controller: 'FIRMATA',
-        strips: [ { pin: 6, length: 128 }, ]
-    });
 
-    strip.on('ready', () => {
-        // do stuff with the strip here.
-    });
+board.on('ready', async () => {
+  await rvl.initRenderer();
+  strip = new pixel.Strip(options)
+  strip.on('ready', () => {
+    const layer = rvl.createRainbowWave(255, 4);
+    const parameters = rvl.createWaveParameters(layer);
+    const pixels = rvl.renderPixels(parameters);
+    for (let i = 0; i < pixels.length; i++) {
+      strip.pixel(i).color([ pixels[i].r, pixels[i].g, pixels[i].b ]);
+    }
+  });
 });
 </code></pre>
       </div>
