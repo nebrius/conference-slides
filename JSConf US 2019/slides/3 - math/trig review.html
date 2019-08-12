@@ -20,7 +20,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <meta charset="utf-8">
 <link href="../lib/katex/katex.css" rel="stylesheet">
 <link href="../style.css" rel="stylesheet">
-<link href="./trig review.css" rel="stylesheet">
+<style>
+.trig-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 150px auto;
+  grid-template-areas:
+    "equation equation"
+    "controls graph";
+  justify-items: center;
+  align-items: center;
+}
+
+.trig-equation {
+  grid-area: equation;
+}
+
+.trig-graph-container {
+  grid-area: graph;
+  width: 100%;
+  height: 100%;
+}
+
+.trig-controls {
+  grid-area: controls;
+  padding: 75px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-column-gap: 10px;
+}
+</style>
 </head>
 <body>
   <div class="rprez">
