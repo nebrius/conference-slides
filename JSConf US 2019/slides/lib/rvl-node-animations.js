@@ -1,5 +1,4 @@
 // Note: this is a one-off build of https://github.com/nebrius/rvl-node-animations.
-
 /*
 Copyright (c) Bryan Hughes <bryan@nebri.us>
 
@@ -21,33 +20,19 @@ along with Raver Lights Node Animations.  If not, see <http://www.gnu.org/licens
 const EMPTY_CHANNEL = { a: 0, w_t: 0, w_x: 0, phi: 0, b: 0 };
 let nWaves = 0;
 let nPixels = 0;
-let calculatePixelValue = null;
 let startTime = 0;
 let time = 0;
-export async function init(numWaves, numPixels) {
+let wParameters;
+export function initRenderer(waveParameters, numPixels, numWaves = 4) {
     nWaves = numWaves;
     nPixels = numPixels;
-    startTime = Date.now();
-    const response = await fetch('../lib/calculatePixelValue.wasm');
-    const buffer = await response.arrayBuffer();
-    // const buffer = await promises.readFile('./calculatePixelValue.wasm');
-    const memory = new WebAssembly.Memory({ initial: 256, maximum: 256 });
-    const env = {
-        abortStackOverflow: (err) => { throw new Error(`overflow: ${err}`); },
-        table: new WebAssembly.Table({ initial: 0, maximum: 0, element: 'anyfunc' }),
-        __table_base: 0,
-        memory,
-        __memory_base: 1024,
-        STACKTOP: 0,
-        STACK_MAX: memory.buffer.byteLength,
-    };
-    const mod = await WebAssembly.instantiate(buffer, { env });
-    calculatePixelValue = mod.instance.exports._calculatePixelValue;
-}
-export function resetClock() {
+    wParameters = waveParameters;
     startTime = Date.now();
 }
-export function getClock() {
+export function resetRendererClock() {
+    startTime = Date.now();
+}
+export function getRendererClock() {
     return time;
 }
 // Modified from https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
@@ -83,34 +68,41 @@ function hsvToRgb(color) {
     }
     return [r * 255, g * 255, b * 255];
 }
-export function calculatePixels(waveParameters) {
+function calculatePixelValue(waveChannel, t, x) {
+    // Approximate 8-bit sin function from C++
+    let sin = 2 * Math.PI * (waveChannel.w_t * t / 100 + waveChannel.w_x * x + waveChannel.phi) / 255;
+    sin = 127.5 * (Math.sin(sin) + 1);
+    sin = Math.round(sin * waveChannel.a / 255 + waveChannel.b);
+    return sin;
+}
+export function renderPixels() {
     if (!calculatePixelValue) {
-        throw new Error('calculatePixels called before init');
+        throw new Error('renderPixels called before init');
     }
     const animationClock = Date.now() - startTime;
-    if (!waveParameters.timePeriod) {
-        waveParameters.timePeriod = 255;
+    if (!wParameters.timePeriod) {
+        wParameters.timePeriod = 255;
     }
-    if (!waveParameters.distancePeriod) {
-        waveParameters.distancePeriod = 32;
+    if (!wParameters.distancePeriod) {
+        wParameters.distancePeriod = 32;
     }
     const colors = [];
     time = animationClock % 25500;
     for (let i = 0; i < nPixels; i++) {
         const pixelColorLayers = [];
         for (let j = 0; j < nWaves; j++) {
-            const x = Math.floor(255 * (i % waveParameters.distancePeriod) / waveParameters.distancePeriod);
-            const wave = waveParameters.waves[j];
+            const x = Math.floor(255 * (i % wParameters.distancePeriod) / wParameters.distancePeriod);
+            const wave = wParameters.waves[j];
             const pixelColor = hsvToRgb([
-                calculatePixelValue(wave.h.a, wave.h.w_t, wave.h.w_x, wave.h.phi, wave.h.b, time, x) / 255,
-                calculatePixelValue(wave.s.a, wave.s.w_t, wave.s.w_x, wave.s.phi, wave.s.b, time, x) / 255,
-                calculatePixelValue(wave.v.a, wave.v.w_t, wave.v.w_x, wave.v.phi, wave.v.b, time, x) / 255
+                calculatePixelValue(wave.h, time, x) / 255,
+                calculatePixelValue(wave.s, time, x) / 255,
+                calculatePixelValue(wave.v, time, x) / 255
             ]);
             pixelColorLayers[j] = {
                 r: pixelColor[0],
                 g: pixelColor[1],
                 b: pixelColor[2],
-                a: calculatePixelValue(wave.a.a, wave.a.w_t, wave.a.w_x, wave.a.phi, wave.a.b, time, x)
+                a: calculatePixelValue(wave.a, time, x)
             };
         }
         colors[i] = pixelColorLayers;

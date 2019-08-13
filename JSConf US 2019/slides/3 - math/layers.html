@@ -68,14 +68,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script type="module">
 import { addPresentationMessageListener, sendPresentationMessage, init } from '../rprez-handler.js';
-import { initLED, createLEDStrip, setLEDParameters, getTime } from '../leds.js';
+import { createLEDStrip, setLEDParameters, getTime } from '../leds.js';
 import { createWaveParameters } from '../animations.js'
 import { graph } from '../graph.js';
 
 import katex from '../lib/katex/katex.mjs';
 (async () => {
-  await initLED();
-
   let a = 1;
   let omegaT = 8;
   let omegaX = 2;

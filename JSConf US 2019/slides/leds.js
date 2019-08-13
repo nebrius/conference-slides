@@ -15,16 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { init, resetClock, getClock, calculatePixels } from './lib/rvl-node-animations.js';
+import { resetRendererClock, getRendererClock, renderPixels, initRenderer } from './lib/rvl-node-animations.js';
 
 const NUM_LEDS = 32;
-const NUM_WAVES = 4;
 
 const leds = [];
-
-export async function initLED() {
-  await init(NUM_WAVES, NUM_LEDS);
-};
 
 export function createLEDStrip(parentElement, numLeds) {
   function createDiv(className) {
@@ -46,15 +41,15 @@ export function createLEDStrip(parentElement, numLeds) {
 };
 
 export function getTime() {
-  return getClock() % 25500;
+  return getRendererClock() % 25500;
 }
 
 let updateInterval;
 export function setLEDParameters(waveParameters) {
   clearInterval(updateInterval);
-  resetClock();
+  initRenderer(waveParameters, NUM_LEDS);
   updateInterval = setInterval(() => {
-    const colors = calculatePixels(waveParameters);
+    const colors = renderPixels();
     for (let led = 0; led < NUM_LEDS; led++) {
       const ledElement = leds[led];
       const color = colors[led];
