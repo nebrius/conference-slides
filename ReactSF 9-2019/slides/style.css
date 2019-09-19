@@ -187,13 +187,13 @@ body {
 }
 
 .bullet-title {
-  font-size: 6em;
-  width: 30%;
+  font-size: 8em;
+  width: 40%;
   text-align: end;
 }
 
 .bullet-content {
-  font-size: 5em;
+  font-size: 7em;
   border-left: 1px solid #aaa;
   margin-left: 1.2em;
   padding-left: 1em;
