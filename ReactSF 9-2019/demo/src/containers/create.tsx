@@ -14,3 +14,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+import { connect } from 'react-redux';
+import { IStore } from '../types';
+import { IAction } from '../actions/actions';
+import { CreateTodo, ICreateTodoProps, ICreateTodoDispatch } from '../components/create';
+import { createAddTodoAction } from '../actions/actions';
+
+function mapStateToProps(state: IStore): ICreateTodoProps {
+  return {};
+}
+
+function mapDispatchToProps(dispatch: (action: IAction) => any): ICreateTodoDispatch {
+  return {
+    add: (label: string) => dispatch(createAddTodoAction(label))
+  };
+}
+
+export const CreateContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateTodo);

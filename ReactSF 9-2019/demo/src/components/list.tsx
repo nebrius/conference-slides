@@ -14,3 +14,27 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+import * as React from 'react';
+import { ITodo } from '../types';
+
+export interface IListProps {
+  todos: ITodo[];
+}
+
+export interface IListDispatch {
+
+}
+
+export class ListTodos extends React.Component<IListProps & IListDispatch, {}> {
+  public render() {
+    return (
+      <div>
+        <h3>Current Entries:</h3>
+        {this.props.todos.map((todoEntry, key) => (
+          <div key={key}>{todoEntry.label}</div>
+        ))}
+      </div>
+    );
+  }
+}

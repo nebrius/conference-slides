@@ -14,3 +14,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+export enum Action {
+  AddTodo
+}
+
+export interface IAction {
+  type: Action;
+}
+
+// Add Todo
+
+export interface IAddTodoAction extends IAction {
+  type: Action.AddTodo;
+  label: string;
+}
+
+export function createAddTodoAction(label: string): IAddTodoAction {
+  return {
+    type: Action.AddTodo,
+    label
+  };
+}

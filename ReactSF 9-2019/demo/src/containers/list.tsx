@@ -14,3 +14,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+import { connect } from 'react-redux';
+import { IStore } from '../types';
+import { IAction } from '../actions/actions';
+import { ListTodos, IListDispatch, IListProps } from '../components/list';
+
+function mapStateToProps(state: IStore): IListProps {
+  return {
+    todos: state.todos.list
+  };
+}
+
+function mapDispatchToProps(dispatch: (action: IAction) => any): IListDispatch {
+  return {};
+}
+
+export const ListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListTodos);
