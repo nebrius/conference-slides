@@ -10,11 +10,9 @@ export interface ITodo {
 }
 
 export interface IStore {
-  todos: ITodo[];
 }
 
 export interface IReducers {
-  todos: Reducer;
 }
 ```
 
@@ -38,13 +36,17 @@ export interface IAction {
 
 ```typescript
 import { Reducer } from 'redux';
-import { IStore } from '../types';
+import { ITodo } from '../types';
 import { IAction } from '../actions/actions';
 
-export const todoReducer: Reducer<IStore> = (state: IStore | undefined, action: IAction) => {
+export interface ITodoStore {
+  list: ITodo[];
+}
+
+export const todoReducer: Reducer<ITodoStore> = (state: ITodoStore | undefined, action: IAction) => {
   if (!state) {
     state = {
-      todos: []
+      list: []
     };
   }
   switch (action.type) {
@@ -52,6 +54,27 @@ export const todoReducer: Reducer<IStore> = (state: IStore | undefined, action: 
       return state;
   }
 };
+```
+
+## Update types
+
+**types.ts**
+
+```typescript
+import { Reducer } from 'redux';
+import { ITodoStore } from './reducers/reducers';
+
+export interface ITodo {
+  label: string;
+}
+
+export interface IStore {
+  todos: ITodoStore;
+}
+
+export interface IReducers {
+  todos: Reducer<ITodoStore>;
+}
 ```
 
 ## Instantiate store and reducers
@@ -106,6 +129,7 @@ export class CreateTodo extends React.Component<ICreateTodoProps & ICreateTodoDi
   public render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <h3>Add new entry:</h3>
         <div>
           <label>Todo Label:</label>
           <input type="text" value={this.state.labelValue} onChange={this.onLabelChanged}></input>
@@ -214,22 +238,28 @@ export function Root(): JSX.Element {
 
 ```typescript
 import { Reducer } from 'redux';
-import { IStore } from '../types';
+import { ITodo } from '../types';
 import { Action, IAction, IAddTodoAction } from '../actions/actions';
 
-export const todoReducer: Reducer<IStore> = (state: IStore | undefined, action: IAction) => {
+export interface ITodoStore {
+  list: ITodo[];
+}
+
+export const todoReducer: Reducer<ITodoStore> = (state: ITodoStore | undefined, action: IAction) => {
   if (!state) {
     state = {
-      todos: []
+      list: []
     };
   }
   switch (action.type) {
     case Action.AddTodo:
-      state.todos = [
-        ...state.todos,
-        { label: (action as IAddTodoAction).label }
-      ];
-      return state;
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          { label: (action as IAddTodoAction).label }
+        ]
+      };
     default:
       return state;
   }
@@ -263,3 +293,5 @@ ReactDOM.render(
   document.getElementById('app')
 );
 ```
+
+##
