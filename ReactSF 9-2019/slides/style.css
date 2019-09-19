@@ -99,7 +99,7 @@ body {
   padding-left: var(--decorator-width);
 }
 
-.text::after, .demo::after {
+.text::after, .demo::after, .bullet::after {
   content: "@nebrius";
   position: absolute;
   left: 0;
@@ -162,30 +162,43 @@ body {
   background-color:#ff0000;
 }
 
-.display-led-set {
-  padding: 10px 10px 0 10px;
-  grid-area: submission;
+.demo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  align-items: baseline;
-  justify-content: space-evenly;
-  height: fit-content;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 125px;
 }
 
-.display-led-container {
-  border: 1px solid black;
-  border-radius: 2px;
-  height: fit-content;
-  background-color: black;
-}
-
-.display-led-overlay {
-  filter: blur(4px);
-  padding: 5px;
+.bullet {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 125px;
 }
 
-.display-led {
-  width: var(--led-diameter);
-  height: var(--led-diameter);
-  border-radius: var(--led-diameter);
+.bullet-title {
+  font-size: 6em;
+  width: 30%;
+  text-align: end;
+}
+
+.bullet-content {
+  font-size: 5em;
+  border-left: 1px solid #aaa;
+  margin-left: 1.2em;
+  padding-left: 1em;
+}
+
+.bullet-content li {
+  margin: 0.5em 0;
 }
