@@ -27,12 +27,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="demo">
       <div class="demo-title">Classes</div>
       <div class="demo-contents">
-<pre><code class="typescript">interface IShip {
+<pre><code class="typescript">export interface IShip {
   name: string;
   takeoff(): void;
 }
 
-class Ship implements IShip {
+export class Ship implements IShip {
   private shipName: string;
   public get name() {
     return this.shipName;
