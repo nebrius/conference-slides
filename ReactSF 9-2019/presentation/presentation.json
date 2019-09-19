@@ -9,10 +9,6 @@
     { "slide": "./slides/ts-classes.html" },
     { "slide": "./slides/ts-generics.html" },
 
-    { "slide": "./slides/react-section.html" },
-    { "slide": "./slides/react-define.html" },
-    { "slide": "./slides/react-consume.html" },
-
     { "slide": "./slides/demo-section.html" }
   ]
 }
