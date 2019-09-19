@@ -191,7 +191,7 @@ export const CreateContainer = connect(
 )(CreateTodo);
 ```
 
-## Link in to Root component
+## Create Root component
 
 **components/root.tsx**
 
@@ -234,4 +234,32 @@ export const todoReducer: Reducer<IStore> = (state: IStore | undefined, action: 
       return state;
   }
 };
+```
+
+## Wire in Root component to app
+
+**app.tsx**
+
+```typescript
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import { IReducers } from './types';
+import { todoReducer } from './reducers/reducers';
+import { Root } from './components/root';
+
+const reducers: IReducers = {
+  todos: todoReducer
+};
+const store = createStore(combineReducers(reducers));
+
+ReactDOM.render(
+  (
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  ),
+  document.getElementById('app')
+);
 ```
