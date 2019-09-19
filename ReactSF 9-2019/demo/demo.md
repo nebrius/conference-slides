@@ -118,10 +118,9 @@ export class CreateTodo extends React.Component<ICreateTodoProps & ICreateTodoDi
   }
 
   private onLabelChanged = (event: React.FormEvent<HTMLInputElement>) => {
+    const labelValue = event.currentTarget.value;
     this.setState(() => {
-      const newState: ICreateTodoState = {
-        labelValue: event.currentTarget.value
-      };
+      const newState: ICreateTodoState = { labelValue };
       return newState;
     });
   }
@@ -130,9 +129,7 @@ export class CreateTodo extends React.Component<ICreateTodoProps & ICreateTodoDi
     event.preventDefault();
     this.props.add(this.state.labelValue);
     this.setState(() => {
-      const newState: ICreateTodoState = {
-        labelValue: ''
-      };
+      const newState: ICreateTodoState = { labelValue: '' };
       return newState;
     });
   }
@@ -144,9 +141,18 @@ export class CreateTodo extends React.Component<ICreateTodoProps & ICreateTodoDi
 **actions/actions.ts**
 
 ```typescript
+export enum Action {
+  AddTodo
+}
+
+export interface IAction {
+  type: Action;
+}
+
 // Add Todo
 
 export interface IAddTodoAction extends IAction {
+  type: Action.AddTodo;
   label: string;
 }
 
@@ -179,8 +185,53 @@ function mapDispatchToProps(dispatch: (action: IAction) => any): ICreateTodoDisp
   };
 }
 
-export const CleaningHistoryContainer = connect(
+export const CreateContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(CreateTodo);
+```
+
+## Link in to Root component
+
+**components/root.tsx**
+
+```typescript
+import * as React from 'react';
+import { CreateContainer } from '../containers/create';
+
+export function Root(): JSX.Element {
+  return (
+    <div>
+      <CreateContainer />
+    </div>
+  );
+}
+```
+
+## Update reducer
+
+**reducers/reducers.ts**
+
+```typescript
+import { Reducer } from 'redux';
+import { IStore } from '../types';
+import { Action, IAction, IAddTodoAction } from '../actions/actions';
+
+export const todoReducer: Reducer<IStore> = (state: IStore | undefined, action: IAction) => {
+  if (!state) {
+    state = {
+      todos: []
+    };
+  }
+  switch (action.type) {
+    case Action.AddTodo:
+      state.todos = [
+        ...state.todos,
+        { label: (action as IAddTodoAction).label }
+      ];
+      return state;
+    default:
+      return state;
+  }
+};
 ```
