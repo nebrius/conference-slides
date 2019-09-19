@@ -1,0 +1,11 @@
+{
+  "slides": [
+    { "slide": "./slides/title.html" },
+    { "slide": "./slides/ts-section.html" },
+    { "slide": "./slides/ts-overview.html" },
+    { "slide": "./slides/ts-types.html" },
+    { "slide": "./slides/ts-interfaces.html" },
+    { "slide": "./slides/ts-classes.html" },
+    { "slide": "./slides/ts-generics.html" }
+  ]
+}

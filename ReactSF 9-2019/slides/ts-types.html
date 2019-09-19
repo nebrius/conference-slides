@@ -1,0 +1,50 @@
+<!--
+Copyright (C) Bryan Hughes <bryan@nebri.us>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="./lib/highlight/styles/ir-black.css" rel="stylesheet">
+<link href="./style.css" rel="stylesheet">
+<script src="./lib/highlight/highlight.pack.js"></script>
+</head>
+<body>
+  <div class="rprez">
+    <div class="demo">
+      <div class="demo-title">Primitives</div>
+      <div class="demo-contents">
+<pre><code class="typescript">function combine(first: string, last: string): string {
+  return `${first} ${last}`;
+}
+
+const firstName: string = 'Philip';
+const lastName: string = 'Fry';
+
+console.log(combine(firstName, lastName));
+</code></pre>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+import { init } from './rprez-handler.js';
+hljs.initHighlightingOnLoad();
+init();
+</script>
+
+</body>
+</html>
