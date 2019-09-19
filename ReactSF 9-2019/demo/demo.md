@@ -294,4 +294,77 @@ ReactDOM.render(
 );
 ```
 
-##
+## Create List component
+
+**components/list.tsx**
+
+```typescript
+import * as React from 'react';
+import { ITodo } from '../types';
+
+export interface IListProps {
+  todos: ITodo[];
+}
+
+export interface IListDispatch {
+
+}
+
+export class ListTodos extends React.Component<IListProps & IListDispatch, {}> {
+  public render() {
+    return (
+      <div>
+        <h3>Current Entries:</h3>
+        {this.props.todos.map((todoEntry, key) => (
+          <div key={key}>{todoEntry.label}</div>
+        ))}
+      </div>
+    );
+  }
+}
+```
+
+## Create list container
+
+**containers/list.ts**
+
+```typescript
+import { connect } from 'react-redux';
+import { IStore } from '../types';
+import { IAction } from '../actions/actions';
+import { ListTodos, IListDispatch, IListProps } from '../components/list';
+
+function mapStateToProps(state: IStore): IListProps {
+  return {
+    todos: state.todos.list
+  };
+}
+
+function mapDispatchToProps(dispatch: (action: IAction) => any): IListDispatch {
+  return {};
+}
+
+export const ListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListTodos);
+```
+
+## Wire in list container to root
+
+**components/root.tsx**
+
+```typescript
+import * as React from 'react';
+import { CreateContainer } from '../containers/create';
+import { ListContainer } from '../containers/list';
+
+export function Root(): JSX.Element {
+  return (
+    <div>
+      <CreateContainer />
+      <ListContainer />
+    </div>
+  );
+}
+```
