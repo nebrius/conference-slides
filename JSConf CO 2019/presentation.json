@@ -1,10 +1,15 @@
 {
   "slides": [
     { "slide": "./slides/1 - Intro/title.html" },
+    { "slide": "./slides/1 - Intro/what is art.html" },
+    { "slide": "./slides/1 - Intro/artists in common.html" },
+    { "slide": "./slides/1 - Intro/artists use tech.html" },
 
     { "slide": "./slides/2 - Tech Art/section.html" },
 
     { "slide": "./slides/3 - Journey/section.html" },
+    { "slide": "./slides/3 - Journey/2012.html" },
+    { "slide": "./slides/3 - Journey/2013.html" },
 
     { "slide": "./slides/4 - Bridge/section.html" },
 

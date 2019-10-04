@@ -30,6 +30,51 @@ export function addPresentationMessageListener(listener) {
   presentationMessageListeners.push(listener);
 }
 
+export const Hook = {
+  Next: 'Next',
+  Previous: 'Previous',
+  Exit: 'Exit'
+};
+
+const hooks = {
+  [Hook.Next]: [],
+  [Hook.Previous]: [],
+  [Hook.Exit]: []
+};
+
+export function addNavigationHook(type, cb) {
+  if (!Hook.hasOwnProperty(type)) {
+    throw new Error(`Unknown hook type ${type}`);
+  }
+  hooks[type].push(cb);
+}
+
+export function removeNavigationHook(type, cb) {
+  if (!Hook.hasOwnProperty(type)) {
+    throw new Error(`Unknown hook type ${type}`);
+  }
+  const cbIndex = hooks[type].indexOf(cb);
+  if (cbIndex === -1) {
+    return;
+  }
+  hooks[type].splice(cbIndex, 1);
+}
+
+function callHooks(type) {
+  for (const hook of hooks[type]) {
+    let preventDefault = false;
+    hook({
+      preventDefault: () => {
+        preventDefault = true;
+      }
+    });
+    if (preventDefault) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export async function init() {
   return new Promise((resolve, reject) => {
     function setSize() {
@@ -46,6 +91,9 @@ export async function init() {
       document.onkeyup = (e) => {
         switch (e.key) {
           case 'Escape': {
+            if (callHooks(Hook.Exit)) {
+              return;
+            }
             const message = {
               type: 'RequestExistShow'
             };
@@ -56,6 +104,9 @@ export async function init() {
           case ' ':
           case 'd':
           case 'PageUp': {
+            if (callHooks(Hook.Next)) {
+              return;
+            }
             const message = {
               type: 'RequestNextSlide'
             };
@@ -65,6 +116,9 @@ export async function init() {
           case 'ArrowLeft':
           case 'a':
           case 'PageDown': {
+            if (callHooks(Hook.Previous)) {
+              return;
+            }
             const message = {
               type: 'RequestPreviousSlide'
             };
