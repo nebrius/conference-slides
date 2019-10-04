@@ -6,6 +6,10 @@
     { "slide": "./slides/1 - Intro/artists use tech.html" },
 
     { "slide": "./slides/2 - Tech Art/section.html" },
+    { "slide": "./slides/2 - Tech Art/paint.html" },
+    { "slide": "./slides/2 - Tech Art/css.html" },
+    { "slide": "./slides/2 - Tech Art/pink.html" },
+    { "slide": "./slides/2 - Tech Art/johnny-five.html" },
 
     { "slide": "./slides/3 - Journey/section.html" },
     { "slide": "./slides/3 - Journey/beginning.html" },

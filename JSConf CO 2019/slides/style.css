@@ -99,7 +99,7 @@ body {
   padding-left: var(--decorator-width);
 }
 
-.text::after, .demo::after, .bullet::after, .photo::after {
+.text::after, .demo::after, .bullet::after, .photo::after, .external::after {
   content: "@nebrius";
   position: absolute;
   left: 0;
@@ -227,13 +227,13 @@ body {
 }
 
 .bullet-title {
-  font-size: 8em;
+  font-size: 7em;
   width: 40%;
   text-align: end;
 }
 
 .bullet-content {
-  font-size: 7em;
+  font-size: 6em;
   border-left: 1px solid #aaa;
   margin-left: 1.2em;
   padding-left: 1em;
@@ -241,4 +241,39 @@ body {
 
 .bullet-content li {
   margin: 0.5em 0;
+}
+
+.external {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 80px;
+}
+
+.external-header {
+  font-size: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.external-container {
+  border: none;
+  width: 90%;
+  margin: 20px;
+  flex-grow: 1;
+}
+
+.external-footer {
+  font-size: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
 }
