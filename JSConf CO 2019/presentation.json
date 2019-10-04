@@ -16,12 +16,15 @@
     { "slide": "./slides/3 - Journey/2016-2.html" },
     { "slide": "./slides/3 - Journey/2016-3.html" },
     { "slide": "./slides/3 - Journey/refinement.html" },
-    { "slide": "./slides/3 - Journey/2017.html" },
     { "slide": "./slides/3 - Journey/2018.html" },
 
     { "slide": "./slides/4 - Bridge/section.html" },
 
     { "slide": "./slides/5 - Conclusion/section.html" },
+    { "slide": "./slides/5 - Conclusion/desert wave.html" },
+    { "slide": "./slides/5 - Conclusion/temple.html" },
+    { "slide": "./slides/5 - Conclusion/trash fence.html" },
+    { "slide": "./slides/5 - Conclusion/deep playa branch.html" },
     { "slide": "./slides/5 - Conclusion/thanks.html" }
   ]
 }
