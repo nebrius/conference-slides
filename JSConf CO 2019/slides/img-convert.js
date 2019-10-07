@@ -1,4 +1,13 @@
-<!--
+const { readFileSync, writeFileSync } = require('fs');
+const { basename, extname } = require('path');
+
+const inputFile = process.argv[2];
+const mimeType = `image/${extname(inputFile).substr(1).replace('jpg', 'jpeg')}`;
+const outputFile = `${basename(inputFile, extname(inputFile))}.css`;
+
+const imageData = readFileSync(process.argv[2]).toString('base64');
+
+const css = `/*
 Copyright (C) Bryan Hughes <bryan@nebri.us>
 
 This program is free software: you can redistribute it and/or modify
@@ -13,23 +22,11 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
-<link href="../style.css" rel="stylesheet">
-</head>
-<body>
-  <div class="rprez">
-    <div class="section">
-      <div class="section-title">Bridge</div>
-    </div>
-  </div>
-<script type="module">
-import { init } from '../rprez-handler.js';
-init();
-</script>
-</body>
-</html>
+*/
+
+.photo-image {
+  background-image: url(data:${mimeType};base64,${imageData});
+}
+`;
+
+writeFileSync(outputFile, css);
