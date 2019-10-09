@@ -99,7 +99,7 @@ body {
   padding-left: var(--decorator-width);
 }
 
-.text::after, .demo::after, .bullet::after, .photo::after, .external::after {
+.text::after, .demo::after, .bullet::after, .photo::after, .external::after, .quote::after {
   content: "@nebrius";
   position: absolute;
   left: 0;
@@ -276,4 +276,30 @@ body {
   align-items: center;
   justify-content: center;
   margin: 20px;
+}
+
+.quote {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.quote-text {
+  font-size: 6em;
+  font-style: italic;
+  width: 80%;
+  text-align: center;
+}
+
+.quote-attribution {
+  margin-top: 100px;
+  font-size: 4em;
+  text-align: right;
+  width: 90%;
 }

@@ -29,9 +29,10 @@
     { "slide": "./slides/4 - Burning Man/desert wave.html" },
     { "slide": "./slides/4 - Burning Man/temple.html" },
     { "slide": "./slides/4 - Burning Man/trash fence.html" },
+    { "slide": "./slides/4 - Burning Man/life.html" },
     { "slide": "./slides/4 - Burning Man/deep playa branch.html" },
 
-    { "slide": "./slides/5 - Conclusion/Section.html" }
+    { "slide": "./slides/5 - Conclusion/section.html" },
     { "slide": "./slides/5 - Conclusion/thanks.html" }
   ]
 }

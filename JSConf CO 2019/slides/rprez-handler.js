@@ -89,6 +89,7 @@ export async function init() {
       console.log('Connected to bridging server');
 
       document.onkeyup = (e) => {
+        console.log(e);
         switch (e.key) {
           case 'Escape': {
             if (callHooks(Hook.Exit)) {
@@ -103,7 +104,7 @@ export async function init() {
           case 'ArrowRight':
           case ' ':
           case 'd':
-          case 'PageUp': {
+          case 'PageDown': {
             if (callHooks(Hook.Next)) {
               return;
             }
@@ -115,7 +116,7 @@ export async function init() {
           }
           case 'ArrowLeft':
           case 'a':
-          case 'PageDown': {
+          case 'PageUp': {
             if (callHooks(Hook.Previous)) {
               return;
             }
