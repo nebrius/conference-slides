@@ -9,7 +9,7 @@
     { "slide": "./slides/2 - Tech Art/paint.html" },
     { "slide": "./slides/2 - Tech Art/css.html" },
     { "slide": "./slides/2 - Tech Art/pink.html" },
-    { "slide": "./slides/2 - Tech Art/johnny-five.html" },
+    { "slide": "./slides/2 - Tech Art/desert wave.html" },
 
     { "slide": "./slides/3 - Journey/section.html" },
     { "slide": "./slides/3 - Journey/beginning.html" },
@@ -26,7 +26,6 @@
 
     { "slide": "./slides/4 - Burning Man/section.html" },
     { "slide": "./slides/4 - Burning Man/two way street.html" },
-    { "slide": "./slides/4 - Burning Man/desert wave.html" },
     { "slide": "./slides/4 - Burning Man/temple.html" },
     { "slide": "./slides/4 - Burning Man/trash fence.html" },
     { "slide": "./slides/4 - Burning Man/life.html" },
