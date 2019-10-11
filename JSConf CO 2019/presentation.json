@@ -28,10 +28,10 @@
     { "slide": "./slides/4 - Burning Man/two way street.html" },
     { "slide": "./slides/4 - Burning Man/temple.html" },
     { "slide": "./slides/4 - Burning Man/trash fence.html" },
-    { "slide": "./slides/4 - Burning Man/life.html" },
     { "slide": "./slides/4 - Burning Man/deep playa branch.html" },
 
-    { "slide": "./slides/5 - Conclusion/section.html" },
+    { "slide": "./slides/5 - Conclusion/personal.html" },
+    { "slide": "./slides/5 - Conclusion/society.html" },
     { "slide": "./slides/5 - Conclusion/thanks.html" }
   ]
 }
