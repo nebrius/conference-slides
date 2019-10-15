@@ -89,7 +89,6 @@ export async function init() {
       console.log('Connected to bridging server');
 
       document.onkeyup = (e) => {
-        console.log(e);
         switch (e.key) {
           case 'Escape': {
             if (callHooks(Hook.Exit)) {
