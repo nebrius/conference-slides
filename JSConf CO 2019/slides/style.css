@@ -56,7 +56,7 @@ body {
 }
 
 .title-title {
-  font-size: 7em;
+  font-size: 6em;
   margin: 40px;
   text-align: center;
 }
@@ -100,7 +100,7 @@ body {
 }
 
 .text::after, .demo::after, .bullet::after, .photo::after, .external::after, .quote::after {
-  content: "@nebrius";
+  content: "bit.ly/nebrius-jsconfco2019";
   position: absolute;
   left: 0;
   top: 0;
@@ -127,9 +127,9 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  padding-left: 80px;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+  padding-left: 80px;
 }
 
 .photo-title {
@@ -146,7 +146,6 @@ body {
 }
 
 .photo-image {
-  padding: 10px 0;
   width: 100%;
   height: 100%;
   background-size: contain;
@@ -155,6 +154,37 @@ body {
 }
 
 .photo-date {
+  margin: 10px;
+  font-size: 3em;
+  color: #ddd;
+  text-align: center;
+}
+
+.external {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 80px;
+}
+
+.external-header {
+  margin: 10px;
+  font-size: 4em;
+  text-align: center;
+}
+
+.external-container {
+  border: none;
+  width: 90%;
+  flex-grow: 1;
+}
+
+.external-footer {
   margin: 10px;
   font-size: 3em;
   color: #ddd;
@@ -241,41 +271,6 @@ body {
 
 .bullet-content li {
   margin: 0.5em 0;
-}
-
-.external {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 80px;
-}
-
-.external-header {
-  font-size: 4em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
-}
-
-.external-container {
-  border: none;
-  width: 90%;
-  margin: 20px;
-  flex-grow: 1;
-}
-
-.external-footer {
-  font-size: 3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
 }
 
 .quote {
