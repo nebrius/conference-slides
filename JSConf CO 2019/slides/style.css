@@ -100,7 +100,7 @@ body {
 }
 
 .text::after, .demo::after, .bullet::after, .photo::after, .external::after, .quote::after {
-  content: "bit.ly/nebrius-jsconfco2019";
+  content: "bit.ly/nebrius-jsconfco-2019";
   position: absolute;
   left: 0;
   top: 0;
