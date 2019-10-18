@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 body {
-  background-color: black;
-  color: white;
+  background-color: #eef;
+  color: black;
   font-family: 'Roboto', sans-serif;
   position: absolute;
   left: 0;
@@ -53,6 +53,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: hsl(280, 100%, 20%);
+  color: white;
 }
 
 .title-title {
@@ -77,6 +78,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: hsl(280, 100%, 20%);
+  color: white;
 }
 
 .section-title {
@@ -113,6 +115,7 @@ body {
   font-size: 3em;
   padding: 30px 10px;
   transform: rotate(180deg);
+  color: white;
 }
 
 .text-content {
@@ -156,7 +159,7 @@ body {
 .photo-date {
   margin: 10px;
   font-size: 3em;
-  color: #ddd;
+  color: #222;
   text-align: center;
 }
 
@@ -187,7 +190,7 @@ body {
 .external-footer {
   margin: 10px;
   font-size: 3em;
-  color: #ddd;
+  color: #222;
   text-align: center;
 }
 
