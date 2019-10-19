@@ -121,7 +121,7 @@ body {
 .text-content {
   font-size: 8em;
   height: min-content;
-  margin: 60px;
+  margin: 60px 180px 240px 60px;
 }
 
 .photo {
